@@ -4,24 +4,24 @@
 #include <iomanip>
 using namespace std;
 
-// struct buat barang
+
 struct Barang {
 	string kodeBarang;
 	string namaBarang;
 	double harga;
-	int Stok; // stok pake huruf besar biar keliatan
+	int Stok; 
 };
 
-vector<Barang> DataBarang; // vector global biar gampang
+vector<Barang> DataBarang; 
 
-// function buat nampilin semua barang
+
 void tampilSemua() {
 	cout << "==============================" << endl;
 	cout << "     DAFTAR SEMUA BARANG      " << endl;
 	cout << "==============================" << endl;
 	if (DataBarang.size() == 0) {
 		cout << "Belum ada barang!" << endl;
-		return; // keluar dari function
+		return; 
 	}
 	for (int i = 0; i < DataBarang.size(); i++) {
 		cout << "Kode    : " << DataBarang[i].kodeBarang << endl;
@@ -33,23 +33,23 @@ void tampilSemua() {
 }
 
 void tambahBarang() {
-	Barang b; // variable sementara
+	Barang b; 
 	cout << "Masukkan kode barang  : ";
 	cin >> b.kodeBarang;
 	cout << "Masukkan nama barang  : ";
-	cin.ignore(); // ini penting katanya
+	cin.ignore();
 	getline(cin, b.namaBarang);
 
-	// validasi harga
+
 	ulang1:
 	cout << "Masukkan harga barang : ";
 	cin >> b.harga;
 	if (b.harga < 0) {
 		cout << "ERROR!! harga tidak boleh negatif, coba lagi" << endl;
-		goto ulang1; // pake goto biar simple :)
+		goto ulang1; 
 	}
 
-	// validasi stok
+
 	ulang2:
 	cout << "Masukkan stok barang  : ";
 	cin >> b.Stok;
@@ -62,7 +62,7 @@ void tambahBarang() {
 	cout << "Barang berhasil ditambahkan!!" << endl;
 }
 
-// cari barang by nama
+
 void cariBarang() {
 	string keyword;
 	cout << "Masukkan nama barang yang dicari : ";
@@ -70,8 +70,8 @@ void cariBarang() {
 	getline(cin, keyword);
 
 	bool ketemu = false;
-	for (int i = 0; i <= DataBarang.size() - 1; i++) { // -1 biar ga out of bound
-		// cek apakah nama sama
+	for (int i = 0; i <= DataBarang.size() - 1; i++) { 
+	
 		if (DataBarang[i].namaBarang == keyword) {
 			ketemu = true;
 			cout << "BARANG DITEMUKAN!!" << endl;
@@ -79,29 +79,29 @@ void cariBarang() {
 			cout << "Nama  : " << DataBarang[i].namaBarang << endl;
 			cout << "Harga : Rp" << DataBarang[i].harga << endl;
 			cout << "Stok  : " << DataBarang[i].Stok << " pcs" << endl;
-			break; // stop loop kalo udah ketemu
+			break; 
 		}
 	}
-	if (ketemu == false) { // harusnya !ketemu tapi ini lebih jelas
+	if (ketemu == false) { 
 		cout << "Barang tidak ditemukan :(" << endl;
 	}
 }
 
 void hitungTotalNilai() {
 	double total = 0;
-	double total2 = 0; // ini ga kepake lupa dihapus
+	double total2 = 0; 
 	for (int i = 0; i < DataBarang.size(); i++) {
-		// rumus: harga x stok
+		
 		total = total + (DataBarang[i].harga * DataBarang[i].Stok);
 	}
-	cout << fixed << setprecision(2); // biar ga jadi 2e+07 atau apapun itu
+	cout << fixed << setprecision(2); 
 	cout << "Total nilai inventaris = Rp" << total << endl;
 }
 
-// cek barang yang stoknya mau abis (kurang dari 5)
+
 void cekRestock() {
 	cout << "=== BARANG PERLU RESTOCK ===" << endl;
-	int counter = 0; // hitung berapa barang yang perlu restock
+	int counter = 0; 
 	for (int i = 0; i < DataBarang.size(); i++) {
 		if (DataBarang[i].Stok < 5) {
 			cout << "[!] " << DataBarang[i].namaBarang
@@ -112,10 +112,10 @@ void cekRestock() {
 	if (counter == 0) {
 		cout << "Semua stok aman!" << endl;
 	}
-	// cout << "total barang restock: " << counter << endl; // di-comment dulu
+	
 }
 
-// update stok pake pointer (disuruh pake pointer)
+
 void updateStok() {
 	string kode;
 	cout << "Masukkan kode barang yang mau diupdate : ";
@@ -123,7 +123,7 @@ void updateStok() {
 
 	for (int i = 0; i < DataBarang.size(); i++) {
 		if (DataBarang[i].kodeBarang == kode) {
-			int* ptr = &DataBarang[i].Stok; // ini pointernya
+			int* ptr = &DataBarang[i].Stok;
 			int stokBaru;
 			cout << "Stok sekarang : " << *ptr << endl;
 			cout << "Masukkan stok baru : ";
@@ -132,22 +132,22 @@ void updateStok() {
 				cout << "Stok tidak boleh negatif!!" << endl;
 				return;
 			}
-			*ptr = stokBaru; // update lewat pointer
+			*ptr = stokBaru; 
 			cout << "Stok berhasil diupdate!" << endl;
-			return; // langsung return
+			return;
 		}
 	}
 	cout << "Kode barang tidak ditemukan" << endl;
 }
 
-// MAIN FUNCTION
+
 int main() {
 	int pilihan;
-	// loop terus sampe user milih keluar
-	while (true) {
-		system("cls"); // bersiin layar dulu
 
-		// tampilin menu
+	while (true) {
+		system("cls"); 
+
+		
 		cout << "================================" << endl;
 		cout << "   SISTEM INVENTARIS TOKO v1.0  " << endl;
 		cout << "================================" << endl;
@@ -162,7 +162,6 @@ int main() {
 		cout << "Pilih menu (1-7): ";
 		cin >> pilihan;
 
-		// cek pilihan user
 		if (pilihan == 1) {
 			tambahBarang();
 		} else if (pilihan == 2) {
@@ -177,17 +176,17 @@ int main() {
 			updateStok();
 		} else if (pilihan == 7) {
 			cout << "Terima kasih!! Program selesai." << endl;
-			break; // keluar dari while
+			break; 
 		} else {
-			// kalo inputnya salah
+		
 			cout << "Pilihan tidak valid!! Harus antara 1-7" << endl;
 		}
 
-		// pause sebelum lanjut
+
 		cout << "\nTekan ENTER untuk lanjut...";
 		cin.ignore();
 		cin.get();
 	}
 
-	return 0; // program selesai
+	return 0; 
 }
