@@ -33,12 +33,12 @@ int main()
                 hintDipakai
             );
 
+
             cout << "\nPetunjuk:\n";
             cout << "- Ketik huruf A-Z untuk menebak\n";
             cout << "- Ketik ? untuk menggunakan hint\n";
 
             string input;
-
             cout << "\nHURUF SELANJUTNYA : ";
             cin >> input;
 
